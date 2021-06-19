@@ -8,3 +8,11 @@ services:
       - 3000:3000
     volumes:
       - ./src:/app/src
+    depends_on:
+      - cassandra
+
+  cassandra:
+    container_name:  cassandra
+    image: cassandra:4.0
+    volumes:
+      - ./cassandra:/var/lib/cassandra
