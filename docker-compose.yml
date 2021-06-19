@@ -10,9 +10,21 @@ services:
       - ./src:/app/src
     depends_on:
       - cassandra
+      - mongo
 
   cassandra:
-    container_name:  cassandra
+    container_name: cassandra
     image: cassandra:4.0
     volumes:
       - ./cassandra:/var/lib/cassandra
+
+
+  mongo:
+    container_name: mongo
+    image: mongo:4.4
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: bdnr
