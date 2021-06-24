@@ -11,7 +11,7 @@ router.get('/activities', (req, res, next) => activities.listActivities(req, res
 router.get('/users', (req, res, next) => users.listUsers(req, res, next));
 
 router.post('/users',
-  // usersValidators.userValidator,
+  usersValidators.userValidator,
  (req, res, next) => users.createUser(req, res, next));
 
 router.post('/pictures',

@@ -7,22 +7,23 @@ class UsersController {
   }
 
   async listUsers(req, res, next) {
-    return await this.repository.list()
+    const users = await this.repository.list()
+    res.json(users)
   }
 
   async createUser(req, res, next) {
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //   return res.status(400).json({ errors: errors.array() });
-    // }
-    // encrypt password
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      errors.array().forEach(e => {if(e.param === 'password') delete e.value})
+      return res.status(400).json({ errors: errors.array() });
+    }
     try {
-      return await this.repository.create()
+      const newUser = await this.repository.create(req.body)
+      res.json(newUser);
     } catch (e) {
       console.log(e)
       next(e)
     }
-    res.json({ok:'hey'})
   }
 }
 

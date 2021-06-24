@@ -1,15 +1,17 @@
 const User = require('./userSchema');
-const mongoose = require('mongoose');
-
 class UserRepository {
 
   async list() {
-    return await User.find({}); 
+    let users = await User.find({}).select("-password"); 
+    return users;
   }
 
-  async create() {
-    const newUser = new User({name:'alex'})
-    return await newUser.save();
+  async create(user) {
+    const newUser = new User(user)
+    await newUser.save();
+    const ret = {...newUser._doc}
+    delete ret.password
+    return ret;
   }
 }
 

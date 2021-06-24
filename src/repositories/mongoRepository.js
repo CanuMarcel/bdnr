@@ -7,11 +7,6 @@ module.exports = class MongoRepository {
 
     static async connect() {
         this.connection = await mongoose.connect(this.getUrl(), { useNewUrlParser: true, useUnifiedTopology: true });
-
-        mongoose.connection.on(
-          "error",
-          console.error.bind(console, "connection error:")
-        );
     }
 
     static getUrl() {
@@ -23,7 +18,6 @@ module.exports = class MongoRepository {
     static async initRepository() {
         try {
             await this.connect();
-            console.log('finish')
         } catch (err) {
             console.log(`Error trying to connect to database: ${err}`);
         }
