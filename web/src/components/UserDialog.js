@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MetricDialog({ open, onClose }) {
     const classes = useStyles()
-    const [description, setDescription] = useState('')
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -49,6 +48,7 @@ export default function MetricDialog({ open, onClose }) {
     const [weight, setWeight] = useState('')
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
+    const [equipment, setEquipment] = useState('')
     const [type, setType] = useState('FREE')
     const [privacy, setPrivacy] = useState('PUBLIC')
     const [optin, setOptin] = useState({
@@ -67,23 +67,25 @@ export default function MetricDialog({ open, onClose }) {
       const actualOptin = []
       if (optin.COMMENTS) actualOptin.push('COMMENTS')
       if (optin.KUDOS) actualOptin.push('KUDOS')
-        api.createUser({
-          username,
-          password,
-          name,
-          email,
-          gender,
-          birthdate,
-          height,
-          weight,
-          latitude,
-          longitude,
-          type,
-          privacy,
-          optin: actualOptin,
-        })
-          .then(handleClose)
-          .catch(setError)
+      const actualEquipment = equipment.split('')
+      api.createUser({
+        username,
+        password,
+        name,
+        email,
+        gender,
+        birthdate,
+        height,
+        weight,
+        latitude,
+        longitude,
+        equipment: actualEquipment,
+        type,
+        privacy,
+        optin: actualOptin,
+      })
+        .then(handleClose)
+        .catch(setError)
     }
 
     const handleClose = () => {
@@ -97,6 +99,7 @@ export default function MetricDialog({ open, onClose }) {
       setWeight('')
       setLatitude('')
       setLongitude('')
+      setEquipment('')
       setType('FREE')
       setPrivacy('PUBLIC')
       setOptin({comments: false,kudos: false,})
@@ -287,7 +290,25 @@ export default function MetricDialog({ open, onClose }) {
                             required
                         />
                     </FormControl>
-                    
+                    <FormControl
+                        variant='outlined'
+                        className={classes.formControl}
+                        name='equipment'
+                        fullWidth
+                        required
+                    >
+                        <TextField
+                            autoFocus
+                            margin='dense'
+                            id='equipment'
+                            label='Equipment'
+                            value={equipment}
+                            error={!!getFieldError('equipment')}
+                            helperText={getFieldError('equipment')}
+                            onChange={(e) => setEquipment(e.target.value)}
+                            required
+                        />
+                    </FormControl>
 
                     <FormControl
                         component='fieldset'

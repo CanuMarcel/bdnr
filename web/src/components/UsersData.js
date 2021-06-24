@@ -35,9 +35,10 @@ export default function UsersData({users}) {
               <Typography noWrap className={classes.info}>Weight: {user.weight.$numberDecimal} kilos</Typography>
               <Typography noWrap className={classes.info}>Latitude: {user.latitude.$numberDecimal}</Typography>
               <Typography noWrap className={classes.info}>Longitude: {user.longitude.$numberDecimal}</Typography>
+              <Typography noWrap className={classes.info}>Equipment: {user.equipment?.join()}</Typography>
               <Typography noWrap className={classes.info}>Account Type: {user.type}</Typography>
               <Typography noWrap className={classes.info}>Account Privacy setting: {user.privacy}</Typography>
-              
+              <Typography noWrap className={classes.info}>Notifications Opt In: {user.optin?.join().toLowerCase()}</Typography>
             </Paper>
           ))
         )
