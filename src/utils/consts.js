@@ -1,0 +1,10 @@
+const NONBINARY = "NONBINARY";
+const GENDERS = ["MALE", "FEMALE", NONBINARY];
+const FREE = "FREE";
+const TYPES = [FREE, "PREMIUM"];
+const PUBLIC = "PUBLIC";
+const PRIVACY = [PUBLIC, "PRIVATE"];
+const OPTIN = ["COMMENTS", "KUDOS"];
+
+module.exports = { GENDERS, TYPES, PRIVACY, OPTIN, NONBINARY, FREE, PUBLIC };
+
