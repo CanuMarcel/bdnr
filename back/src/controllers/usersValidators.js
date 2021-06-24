@@ -14,7 +14,7 @@ const userValidator = [
   body('weight').isFloat(),
   body('privacy').isIn(PRIVACY),
   body('equipment'), //check array
-  body('optin').isIn(OPTIN),
+  body('optin').notEmpty(),
 ]
 
 module.exports = {

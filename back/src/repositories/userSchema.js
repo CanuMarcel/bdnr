@@ -39,7 +39,7 @@ const userSchema = new Schema({
   },
   equipment: [String],
   optin: {
-    type: String,
+    type: [String],
     enum: OPTIN,
   },
 });
