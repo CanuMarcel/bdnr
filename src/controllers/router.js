@@ -7,7 +7,7 @@ const usersValidators = require('./usersValidators');
 const activities = new ActivitiesController();
 const users = new UsersController();
 
-router.get('/activities', (req, res, next) => activities.listActivities(req, res, next));
+router.get('/activities/:userId', async (req, res, next) => await activities.listActivities(req, res, next));
 router.get('/users', (req, res, next) => users.listUsers(req, res, next));
 
 router.post('/users',
