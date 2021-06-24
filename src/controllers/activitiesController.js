@@ -1,9 +1,16 @@
 const { validationResult } = require('express-validator');
+const ActivitiesRepository = require('../repositories/activitiesRepository');
 
 class ActivitiesController {
-    async listActivities(req, res, next) {
-      
+    constructor() {
+      this.repository = new ActivitiesRepository();
     }
+
+    async listActivities(req, res, next) {
+      const result = await this.repository.listAll(req.params.userId)
+      res.json(result)
+    }
+
     async createPicture(req, res, next) {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
