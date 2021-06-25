@@ -14,7 +14,6 @@ import {
     Radio,
     RadioGroup,
     makeStyles,
-    FormHelperText,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { api } from '../api'
@@ -57,7 +56,7 @@ export default function MetricDialog({ open, onClose }) {
     })
     const { KUDOS, COMMENTS } = optin;
 
-    const [error, setError] = useState({})
+    const [errors, setErrors] = useState([])
 
     const handlePotinChange = (event) => {
         setOptin({ ...optin, [event.target.name]: event.target.checked });
@@ -67,7 +66,7 @@ export default function MetricDialog({ open, onClose }) {
       const actualOptin = []
       if (optin.COMMENTS) actualOptin.push('COMMENTS')
       if (optin.KUDOS) actualOptin.push('KUDOS')
-      const actualEquipment = equipment.split('')
+      const actualEquipment = equipment.split(',')
       api.createUser({
         username,
         password,
@@ -85,7 +84,7 @@ export default function MetricDialog({ open, onClose }) {
         optin: actualOptin,
       })
         .then(handleClose)
-        .catch(setError)
+        .catch(e => setErrors(e.response.data.errors))
     }
 
     const handleClose = () => {
@@ -102,12 +101,12 @@ export default function MetricDialog({ open, onClose }) {
       setEquipment('')
       setType('FREE')
       setPrivacy('PUBLIC')
-      setOptin({comments: false,kudos: false,})
+      setOptin({comments: false, kudos: false,})
       onClose()
     }
 
-    const getFieldError = (field) =>
-        error.fieldErrors && error.fieldErrors[field]
+    const getFieldError = (field) => errors.find(error => error.param === field)?.msg
+
 
     return (
         <Dialog
@@ -149,7 +148,8 @@ export default function MetricDialog({ open, onClose }) {
                             autoFocus
                             margin='dense'
                             id='password'
-                            label='password'
+                            label='Password'
+                            type='password'
                             value={password}
                             error={!!getFieldError('password')}
                             helperText={getFieldError('password')}
@@ -207,6 +207,10 @@ export default function MetricDialog({ open, onClose }) {
                             margin='dense'
                             id='birthdate'
                             label='Date of Birth'
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            type='date'
                             value={birthdate}
                             error={!!getFieldError('birthdate')}
                             helperText={getFieldError('birthdate')}
@@ -227,6 +231,10 @@ export default function MetricDialog({ open, onClose }) {
                             id='height'
                             label='Height'
                             value={height}
+                            type='number'
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                             error={!!getFieldError('height')}
                             helperText={getFieldError('height')}
                             onChange={(e) => setHeight(e.target.value)}
@@ -246,6 +254,10 @@ export default function MetricDialog({ open, onClose }) {
                             id='weight'
                             label='Weight'
                             value={weight}
+                            type='number'
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                             error={!!getFieldError('weight')}
                             helperText={getFieldError('weight')}
                             onChange={(e) => setWeight(e.target.value)}
@@ -265,6 +277,10 @@ export default function MetricDialog({ open, onClose }) {
                             id='latitude'
                             label='Latitude'
                             value={latitude}
+                            type='number'
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                             error={!!getFieldError('latitude')}
                             helperText={getFieldError('latitude')}
                             onChange={(e) => setLatitude(e.target.value)}
@@ -284,6 +300,10 @@ export default function MetricDialog({ open, onClose }) {
                             id='longitude'
                             label='Longitude'
                             value={longitude}
+                            type='number'
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
                             error={!!getFieldError('longitude')}
                             helperText={getFieldError('longitude')}
                             onChange={(e) => setLongitude(e.target.value)}
@@ -304,7 +324,7 @@ export default function MetricDialog({ open, onClose }) {
                             label='Equipment'
                             value={equipment}
                             error={!!getFieldError('equipment')}
-                            helperText={getFieldError('equipment')}
+                            helperText={getFieldError('equipment') ?? 'Comma separated list'}
                             onChange={(e) => setEquipment(e.target.value)}
                             required
                         />
@@ -416,12 +436,6 @@ export default function MetricDialog({ open, onClose }) {
                         />
                       </FormGroup>
                     </FormControl>
-
-                    {error.message && (
-                        <FormHelperText variant='filled' error={true}>
-                            {error.message}
-                        </FormHelperText>
-                    )}
                 </form>
             </DialogContent>
             <DialogActions>
