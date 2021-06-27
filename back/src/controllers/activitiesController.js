@@ -1,4 +1,3 @@
-const { validationResult } = require('express-validator');
 const ActivitiesRepository = require('../repositories/activitiesRepository');
 
 class ActivitiesController {
@@ -6,8 +5,14 @@ class ActivitiesController {
       this.repository = new ActivitiesRepository();
     }
 
-    async listActivities(req, res, next) {
-      const result = await this.repository.listAll(req.params.user_id)
+    async list(req, res, next) {
+      const result = await this.repository.listForUser(req.params.user_id)
+      res.json(result)
+    }
+
+    async create(req, res, next) {
+      const activity = req.body;
+      const result = await this.repository.create(activity)
       res.json(result)
     }
 }

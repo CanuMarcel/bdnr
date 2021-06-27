@@ -1,49 +1,49 @@
 const { body } = require('express-validator');
+const { validationResult } = require('express-validator');
 
-const picturesValidator = [
-  body('userId').isUUID(),
-  body('timestamp').isISO8601(),
-  body('title').notEmpty(),
-  body('url').isURL(),
-  body('comment').notEmpty(),
+const isPhoto = (value, { req }) => req.body.activity_type == 'photo';
+const isPost = (value, { req }) => req.body.activity_type == 'post';
+const isPhysical = (value, { req }) => req.body.activity_type == 'physical';
+
+const activityValidator = [
+  body('user_id').exists().isInt(),
+  body('activity_type').exists().isString().isIn(['photo', 'post', 'physical']),
+  body('title').exists().isString(),  
 ]
 
-const publicationsValidator = [
-  body('userId').isUUID(),
-  body('timestamp').isISO8601(),
-  body('title').notEmpty(),
-  body('text').notEmpty(),
+const photoValidator = [
+  body('activity_type').equals('photo'),
+  body('photo_url').exists().isURL(),
+  body('comment').exists().isString(),
 ]
 
-const manualPAValidator = [
-  body('userId').isUUID(),
-  body('timestamp').isISO8601(),
-  body('title').notEmpty(),
-  body('type').notEmpty(),
-  body('duration').isInt({min:0}),
-  body('distance').isInt({min:0}),
-  body('picUrl').isURL(),
+const postValidator = [
+  body('activity_type').equals('post'),
+  body('text').exists().isString(),
+]
+
+const physicalValidator = [
+  body('activity_type').equals('physical'),
+  body('physical_activity_type').exists().isString(),
+  body('photo_url').isURL().optional(),
+  body('duration').isInt().optional(),
+  body('distance').isFloat().optional(),
+  body('perceived_effort').isInt(),
   body('description').isString(),
-  body('effort').isInt({min:0, max:10}),
 ]
 
-const autoPAValidator = [
-  body('userId').isUUID(),
-  body('timestamp').isISO8601(),
-  body('title').notEmpty(),
-  body('type').notEmpty(),
-  body('duration').isInt({min:0}),
-  body('distance').isInt({min:0}),
-  body('latitude').isLatLong(),
-  body('longitude').isLatLong(),
-  body('average_speed').isFloat(),
-  body('cadence').isFloat().optional(),
-  body('calories').isFloat().optional(),
-]
+const validateResult = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  next()
+}
 
 module.exports = {
-  picturesValidator,
-  publicationsValidator,
-  manualPAValidator,
-  autoPAValidator,
+  physicalValidator,
+  postValidator,
+  photoValidator,
+  activityValidator,
+  validateResult,
 };
