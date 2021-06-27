@@ -18,17 +18,27 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function ActivitiesData({activities}) {
+export default function ActivitiesData({activities, comments}) {
     const classes = useStyles()
 
     return (
       <Paper className={classes.paper}>
         {activities?.isSuccess && activities?.data?.data?.length > 0 ? (
-          activities.data.data.map((activity) => (
-            <Paper className={classes.paper} key={activity.username}>
+          <>
+          {activities.data.data.map((activity) => (
               <Typography noWrap className={classes.info} variant="h6">Username: {activity.username}</Typography>
-            </Paper>
+          ))}
+          {comments?.isSuccess && activities?.data?.data?.length > 0 ? comments.data.data.map((comment) => (
+              <>
+                <Typography noWrap className={classes.info} variant="h6">Comments</Typography>
+                <Typography noWrap className={classes.info}>Userid: {comment.username}</Typography>
+                <Typography noWrap className={classes.info}>Comment: {comment.text}</Typography>
+              </>
           ))
+          :
+          <Typography noWrap className={classes.info}>No comments for this activity yet</Typography>
+        }
+          </>
         )
         :
         <Typography variant="h6" noWrap className={classes.title}>
