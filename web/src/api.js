@@ -19,11 +19,12 @@ class API {
       return await this.instance.get(`users`)
   }
 
-  async createActivity(data) {
-    return await this.instance.post(
-        `activities`,
+  async createActivity(userId, data) {
+    await this.instance.post(
+        `${userId}/activities`,
         data,
     )
+    return
   }
 
   async createComment(userId, activityId, data) {

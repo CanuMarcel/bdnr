@@ -26,7 +26,10 @@ export default function ActivitiesData({activities, comments}) {
         {activities?.isSuccess && activities?.data?.data?.length > 0 ? (
           <>
           {activities.data.data.map((activity) => (
-              <Typography noWrap className={classes.info} variant="h6">Username: {activity.username}</Typography>
+            <>
+              <Typography noWrap className={classes.info} variant="h6">Type: {activity.activity_type}</Typography>
+              <Typography noWrap className={classes.info}>Id: {activity.activity_timeuuid}</Typography>
+              </>
           ))}
           {comments?.isSuccess && activities?.data?.data?.length > 0 ? comments.data.data.map((comment) => (
               <>

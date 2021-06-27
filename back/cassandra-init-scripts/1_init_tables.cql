@@ -5,7 +5,7 @@ WITH REPLICATION = {
 };
 
 CREATE TABLE IF NOT EXISTS bdnr.activities (
-    user_id int,
+    user_id text,
     activity_timeuuid timeuuid,
     activity_type text,
     title text,
@@ -20,23 +20,23 @@ CREATE TABLE IF NOT EXISTS bdnr.activities (
     average_speed float,
     average_cadence float,
     total_calories float,
-    kudos SET<int>,
+    kudos SET<text>,
     PRIMARY KEY (user_id, activity_timeuuid)
 ) WITH CLUSTERING ORDER BY (activity_timeuuid DESC);
 
 
 CREATE TABLE IF NOT EXISTS bdnr.comments (
-    activity_user_id int,
+    activity_user_id text,
     activity_timeuuid timeuuid,
     comment_timeuuid timeuuid,
-    user_id int,
+    user_id text,
     text text,
     PRIMARY KEY ((activity_user_id, activity_timeuuid), comment_timeuuid)
 ) WITH CLUSTERING ORDER BY (comment_timeuuid DESC);
 
 
 CREATE TABLE IF NOT EXISTS bdnr.points (
-    user_id int,
+    user_id text,
     activity_timeuuid timeuuid,
     point_timeuuid timeuuid,
     latitude float,

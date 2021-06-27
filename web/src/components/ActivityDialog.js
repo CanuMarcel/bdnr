@@ -33,24 +33,26 @@ export default function ActivityDialog({ open, onClose }) {
     const [distance, setDistance] = useState('')
     const [description, setDescription] = useState('')
     const [perceivedEffort, setPerceivedEffort] = useState('')
+    const [userId ,setUserId ] = useState('')
+
 
     const [errors, setErrors] = useState([])
 
     const handleSubmit = () => {
-      api.createActivity({
+      api.createActivity(userId, {
         activity_type: activityType,
         title,
-        photo_url: photoUrl,
-        comment,
-        text,
-        physical_activity_type: physicalActivityType,
-        duration,
-        distance,
-        description,
-        perceived_effort: perceivedEffort,
+        photo_url: photoUrl || undefined,
+        comment: comment || undefined,
+        text: text || undefined,
+        physical_activity_type: physicalActivityType||undefined,
+        duration:duration||undefined,
+        distance:distance||undefined,
+        description:description||undefined,
+        perceived_effort: perceivedEffort||undefined,
       })
         .then(handleClose)
-        .catch(e => setErrors(e.response.data.errors))
+        .catch(e => console.log(e))
     }
 
     const handleClose = () => {
@@ -67,7 +69,7 @@ export default function ActivityDialog({ open, onClose }) {
         onClose()
     }
 
-    const getFieldError = (field) => errors.find(error => error.param === field)?.msg
+    const getFieldError = (field) => errors?.find(error => error.param === field)?.msg
 
 
     return (
@@ -80,6 +82,23 @@ export default function ActivityDialog({ open, onClose }) {
             <DialogTitle>Create new activity</DialogTitle>
             <DialogContent>
                 <form noValidate>
+                <FormControl
+                        variant='outlined'
+                        className={classes.formControl}
+                        name='userId'
+                        fullWidth
+                    >
+                        <TextField
+                            autoFocus
+                            margin='dense'
+                            id='userId'
+                            label='User Id'
+                            value={userId}
+                            error={!!getFieldError('userId')}
+                            helperText={getFieldError('userId')}
+                            onChange={(e) => setUserId(e.target.value)}
+                        />
+                    </FormControl>
                     <FormControl
                         variant='outlined'
                         className={classes.formControl}
@@ -262,7 +281,7 @@ export default function ActivityDialog({ open, onClose }) {
                             onChange={(e) => setPerceivedEffort(e.target.value)}
                         />
                     </FormControl>
-                    {errors.length >0 && (
+                    {errors?.length >0 && (
                         <FormHelperText variant='filled' error={true}>
                             Please check the errors and try again
                         </FormHelperText>

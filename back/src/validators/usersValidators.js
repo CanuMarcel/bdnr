@@ -15,7 +15,7 @@ const userValidator = [
   body('weight').isFloat(),
   body('privacy').isIn(PRIVACY),
   body('equipment'),
-  body('optin').notEmpty(),
+  body('optin').exists(),
 ]
 
 const validateResult = (req, res, next) => {
@@ -24,6 +24,7 @@ const validateResult = (req, res, next) => {
     errors.array().forEach(e => {if(e.param === 'password') delete e.value})
     return res.status(400).json({ errors: errors.array() });
   }
+  next()
 }
 
 module.exports = {

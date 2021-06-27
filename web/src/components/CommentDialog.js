@@ -48,7 +48,7 @@ export default function CommentDialog({ open, onClose }) {
         onClose()
     }
 
-    const getFieldError = (field) => errors.find(error => error.param === field)?.msg
+    const getFieldError = (field) => errors?.find(error => error.param === field)?.msg
 
 
     return (
@@ -129,7 +129,7 @@ export default function CommentDialog({ open, onClose }) {
                             onChange={(e) => setText(e.target.value)}
                         />
                     </FormControl>
-                    {errors.length >0 && (
+                    {errors?.length >0 && (
                         <FormHelperText variant='filled' error={true}>
                             Please check the errors and try again
                         </FormHelperText>

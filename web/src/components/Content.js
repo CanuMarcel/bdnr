@@ -193,7 +193,7 @@ export default function Content() {
                 open={finishDialogIsOpen}
                 onClose={handleFinishClose}
             />
-            <ActivitiesData />
+            <ActivitiesData activities={activities}/>
         </>
     )
 }

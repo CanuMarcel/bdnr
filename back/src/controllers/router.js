@@ -52,10 +52,10 @@ router.post(
 
 // USERS
 
-router.get('/users', (req, res, next) => users.listUsers(req, res, next));
+router.get('/users', async (req, res, next) => await users.listUsers(req, res, next));
 router.post('/users',
   usersValidators.userValidator,
   usersValidators.validateResult,
- (req, res, next) => users.createUser(req, res, next));
+ async (req, res, next) => await users.createUser(req, res, next));
 
 module.exports = router;

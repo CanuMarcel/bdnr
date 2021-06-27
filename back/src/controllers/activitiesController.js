@@ -14,7 +14,7 @@ class ActivitiesController {
       const activity = req.body;
       activity.user_id = req.params.user_id
       const result = await this.repository.create(activity)
-      res.json(result)
+      res.json(true)
     }
 }
 
