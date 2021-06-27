@@ -4,32 +4,47 @@ WITH REPLICATION = {
     'replication_factor' : 1
 };
 
-
-CREATE TYPE IF NOT EXISTS bdnr.user_comment (
-    user_id timeuuid,
-    text text
-);
-
 CREATE TABLE IF NOT EXISTS bdnr.activities (
     user_id int,
-    timestamp timestamp,
-    type text,
+    activity_timeuuid timeuuid,
+    activity_type text,
     title text,
-    url text,
+    photo_url text,
     comment text,
     text text,
     physical_activity_type text,
-    duration duration,
+    duration int,
     distance float,
-    photo_url text,
     description text,
     perceived_effort smallint,
+    average_speed float,
+    average_cadence float,
+    total_calories float,
+    kudos SET<int>,
+    PRIMARY KEY (user_id, activity_timeuuid)
+) WITH CLUSTERING ORDER BY (activity_timeuuid DESC);
+
+
+CREATE TABLE IF NOT EXISTS bdnr.comments (
+    activity_user_id int,
+    activity_timeuuid timeuuid,
+    comment_timeuuid timeuuid,
+    user_id int,
+    text text,
+    PRIMARY KEY ((activity_user_id, activity_timeuuid), comment_timeuuid)
+) WITH CLUSTERING ORDER BY (comment_timeuuid DESC);
+
+
+CREATE TABLE IF NOT EXISTS bdnr.points (
+    user_id int,
+    activity_timeuuid timeuuid,
+    point_timeuuid timeuuid,
     latitude float,
     longitude float,
-    average_speed float,
     cadence float,
     calories float,
-    comments SET<FROZEN<user_comment>>,
-    kudos SET<text>,
-    PRIMARY KEY (user_id, timestamp)
-) WITH CLUSTERING ORDER BY (timestamp DESC);
+    PRIMARY KEY ((user_id, activity_timeuuid), point_timeuuid)
+) WITH CLUSTERING ORDER BY (point_timeuuid DESC);
+
+
+

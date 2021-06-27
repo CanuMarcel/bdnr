@@ -1,4 +1,3 @@
-const { validationResult } = require('express-validator');
 const ActivitiesRepository = require('../repositories/activitiesRepository');
 
 class ActivitiesController {
@@ -6,50 +5,16 @@ class ActivitiesController {
       this.repository = new ActivitiesRepository();
     }
 
-    async listActivities(req, res, next) {
-      const result = await this.repository.listAll(req.params.userId)
+    async list(req, res, next) {
+      const result = await this.repository.listForUser(req.params.user_id)
       res.json(result)
     }
 
-    async createPicture(req, res, next) {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-      res.json({ok:'hey'})
-    }
-
-    async createPublication(req, res, next) {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-      res.json({ok:'hey'})
-      // PARSE DURATION
-    }
-
-    async createManualPA(req, res, next) {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-      res.json({ok:'hey'})
-      // PARSE DURATION
-    }
-
-    async createAutoPA(req, res, next) {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-      res.json({ok:'hey'})
-      // try {
-      //   const service = new AlertConfigService(req);
-      //   const response = await service.create(req.body);
-      //   res.json(response);
-      // } catch (e) {
-      //   next(e);
-      // }
+    async create(req, res, next) {
+      const activity = req.body;
+      activity.user_id = req.params.user_id
+      const result = await this.repository.create(activity)
+      res.json(result)
     }
 }
 

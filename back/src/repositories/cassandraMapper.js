@@ -12,7 +12,11 @@ const client = new cassandra.Client({
 
 
 const mapper = new cassandra.mapping.Mapper(client, {
-    models: { 'Activity': { tables: ['activities'] }}
+    models: { 
+        'Activity': { tables: ['activities'] },
+        'Point': { tables: ['points'] },
+        'Comment': { tables: ['comments'] },
+    }
 });
 
 module.exports = mapper;

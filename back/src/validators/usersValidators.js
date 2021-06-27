@@ -1,4 +1,5 @@
 const { body } = require('express-validator');
+const { validationResult } = require('express-validator');
 const { GENDERS, TYPES, PRIVACY, OPTIN } = require('../utils/consts');
 
 const userValidator = [
@@ -17,6 +18,15 @@ const userValidator = [
   body('optin').notEmpty(),
 ]
 
+const validateResult = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    errors.array().forEach(e => {if(e.param === 'password') delete e.value})
+    return res.status(400).json({ errors: errors.array() });
+  }
+}
+
 module.exports = {
   userValidator,
+  validateResult,
 };
