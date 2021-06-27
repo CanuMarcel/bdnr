@@ -7,6 +7,10 @@ import {
 import { useState } from 'react'
 import UsersData from './UsersData'
 import UserDialog from './UserDialog'
+import ActivityDialog from './ActivityDialog'
+import CommentDialog from './CommentDialog'
+import PointDialog from './PointDialog'
+import FinishDialog from './FinishDialog'
 import ActivitiesData from './ActivitiesData'
 
 import { api } from '../api'
@@ -44,6 +48,9 @@ export default function Content() {
     const classes = useStyles()
     const [userDialogIsOpen, setUserDialogIsOpen] = useState(false)
     const [activityDialogIsOpen, setActivityDialogIsOpen] = useState(false)
+    const [commentDialogIsOpen, setCommentDialogIsOpen] = useState(false)
+    const [pointDialogIsOpen, setPointDialogIsOpen] = useState(false)
+    const [finishDialogIsOpen, setFinishDialogIsOpen] = useState(false)
     const [userId, setUserId] = useState('')
 
     const users = useQuery(
@@ -65,14 +72,35 @@ export default function Content() {
         users.refetch()
     }
 
+    const handleActivitiesClose = () => {
+        setActivityDialogIsOpen(false)
+        activities.refetch()
+    }
+
+    const handleCommentsClose = () => {
+        setCommentDialogIsOpen(false)
+        activities.refetch()
+    }
+
+    const handlePointsClose = () => {
+        setPointDialogIsOpen(false)
+        activities.refetch()
+    }
+
+    const handleFinishClose = () => {
+        setFinishDialogIsOpen(false)
+        activities.refetch()
+    }
+    
+
     return (
         <>
             <Typography
-                            variant="h5"
-                            noWrap
-                            className={classes.title}
-                        >
-                            Users
+                variant="h5"
+                noWrap
+                className={classes.title}
+            >
+                Users
             </Typography>
             <Button
                 variant="outlined"
@@ -90,14 +118,14 @@ export default function Content() {
             <UsersData users={users}/>
 
 
-
             <Typography
-                            variant="h6"
-                            noWrap
-                            className={classes.title}
-                        >
-                            Activities
+                variant="h6"
+                noWrap
+                className={classes.title}
+            >
+                Activities
             </Typography>
+            <div className={classes.activitiesActions}>
             <Button
                 variant="outlined"
                 color="primary"
@@ -106,15 +134,40 @@ export default function Content() {
             >
                 + Activity
             </Button>
+            <Button
+                variant="outlined"
+                color="primary"
+                onClick={()=>setCommentDialogIsOpen(true)}
+                className={classes.button}
+            >
+                + Comment
+            </Button>
+            <Button
+                variant="outlined"
+                color="primary"
+                onClick={()=>setPointDialogIsOpen(true)}
+                className={classes.button}
+            >
+                + Points
+            </Button>
+             <Button
+                variant="outlined"
+                color="primary"
+                onClick={()=>setFinishDialogIsOpen(true)}
+                className={classes.button}
+            >
+                Finish Activity
+            </Button>
+            </div>
             <div className={classes.activitiesActions}>
                 <TextField
-                            autoFocus
-                            className={classes.activitiesSearch}
-                            id='userId'
-                            label='UserId'
-                            value={userId}
-                            onChange={(e) => setUserId(e.target.value)}
-                        />
+                    autoFocus
+                    className={classes.activitiesSearch}
+                    id='userId'
+                    label='UserId'
+                    value={userId}
+                    onChange={(e) => setUserId(e.target.value)}
+                />
                  <Button
                     variant="outlined"
                     color="primary"
@@ -124,6 +177,22 @@ export default function Content() {
                     Search
                 </Button>
             </div>
+            <ActivityDialog
+                open={activityDialogIsOpen}
+                onClose={handleActivitiesClose}
+            />
+            <CommentDialog
+                open={commentDialogIsOpen}
+                onClose={handleCommentsClose}
+            />
+            <PointDialog
+                open={pointDialogIsOpen}
+                onClose={handlePointsClose}
+            />
+            <FinishDialog
+                open={finishDialogIsOpen}
+                onClose={handleFinishClose}
+            />
             <ActivitiesData />
         </>
     )
