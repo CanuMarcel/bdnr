@@ -4,8 +4,8 @@ class PointsRepository {
     constructor() {
         this.point = cassandraMapper.forModel('Point');
     }
-    async listForActivity(userId, activityUUID) {
-        const result = await this.point.find({ user_id: userId, activity_timeuuid: activityUUID });
+    async listForActivity(user_id, activity_timeuuid) {
+        const result = await this.point.find({ user_id, activity_timeuuid });
         return result.toArray();
     }
 }

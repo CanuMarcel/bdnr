@@ -7,7 +7,7 @@ class ActivitiesController {
     }
 
     async listActivities(req, res, next) {
-      const result = await this.repository.listAll(req.params.userId)
+      const result = await this.repository.listAll(req.params.user_id)
       res.json(result)
     }
 }
