@@ -33,7 +33,7 @@ export default function CommentDialog({ open, onClose }) {
     const handleSubmit = () => {
       api.createComment(activityUserId,activityTimeuuid,
         {
-        userId,
+        user_id: userId,
         text,
       })
         .then(handleClose)

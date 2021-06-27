@@ -41,19 +41,19 @@ export default function ActivityDialog({ open, onClose }) {
 
     const handleSubmit = () => {
       api.createActivity({
-        activityType,
+        activity_type: activityType,
         title,
-        photoUrl,
+        photo_url: photoUrl,
         comment,
         text,
-        physicalActivityType,
+        physical_activity_type: physicalActivityType,
         duration,
         distance,
         description,
-        perceivedEffort,
-        averageSpeed,
-        averageCadence,
-        totalCalories,
+        perceived_effort: perceivedEffort,
+        average_speed: averageSpeed,
+        average_cadence: averageCadence,
+        total_calories: totalCalories,
       })
         .then(handleClose)
         .catch(e => setErrors(e.response.data.errors))
