@@ -6,9 +6,8 @@ class ActivitiesRepository {
     }
     async listAll(userId) {
         const result = await this.activity.find({ user_id: userId });
-        console.dir(result);
         return result.toArray();
-    }
+    }   
 }
 
 module.exports = ActivitiesRepository;

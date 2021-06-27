@@ -3,7 +3,7 @@ version: "3"
 services:
   api:
     build: .
-    container_name: bdnr_api
+    container_name: api
     ports:
       - 8000:8000
     volumes:
@@ -27,7 +27,7 @@ services:
       - ./cassandra-init-scripts:/docker-entrypoint-initdb.d
 
   mongo:
-    container_name: bdnr_mongo
+    container_name: mongo
     image: mongo:4.4
     ports:
       - 27017:27017
