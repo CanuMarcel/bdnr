@@ -33,9 +33,6 @@ export default function ActivityDialog({ open, onClose }) {
     const [distance, setDistance] = useState('')
     const [description, setDescription] = useState('')
     const [perceivedEffort, setPerceivedEffort] = useState('')
-    const [averageSpeed, setAverageSpeed] = useState('')
-    const [averageCadence, setAverageCadence] = useState('')
-    const [totalCalories, setTotalCalories] = useState('')
 
     const [errors, setErrors] = useState([])
 
@@ -51,9 +48,6 @@ export default function ActivityDialog({ open, onClose }) {
         distance,
         description,
         perceived_effort: perceivedEffort,
-        average_speed: averageSpeed,
-        average_cadence: averageCadence,
-        total_calories: totalCalories,
       })
         .then(handleClose)
         .catch(e => setErrors(e.response.data.errors))
@@ -70,9 +64,6 @@ export default function ActivityDialog({ open, onClose }) {
         setDistance('')
         setDescription('')
         setPerceivedEffort('')
-        setAverageSpeed('')
-        setAverageCadence('')
-        setTotalCalories('')
         onClose()
     }
 
@@ -269,69 +260,6 @@ export default function ActivityDialog({ open, onClose }) {
                             error={!!getFieldError('perceivedEffort')}
                             helperText={getFieldError('perceivedEffort')}
                             onChange={(e) => setPerceivedEffort(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl
-                        variant='outlined'
-                        className={classes.formControl}
-                        name='averageSpeed'
-                        fullWidth
-                    >
-                        <TextField
-                            autoFocus
-                            margin='dense'
-                            id='averageSpeed'
-                            label='Average Speed'
-                            value={averageSpeed}
-                            type='number'
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            error={!!getFieldError('averageSpeed')}
-                            helperText={getFieldError('averageSpeed')}
-                            onChange={(e) => setAverageSpeed(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl
-                        variant='outlined'
-                        className={classes.formControl}
-                        name='averageCadence'
-                        fullWidth
-                    >
-                        <TextField
-                            autoFocus
-                            margin='dense'
-                            id='averageCadence'
-                            label='Average Cadence'
-                            value={averageCadence}
-                            type='number'
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            error={!!getFieldError('averageCadence')}
-                            helperText={getFieldError('averageCadence')}
-                            onChange={(e) => setAverageCadence(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl
-                        variant='outlined'
-                        className={classes.formControl}
-                        name='totalCalories'
-                        fullWidth
-                    >
-                        <TextField
-                            autoFocus
-                            margin='dense'
-                            id='totalCalories'
-                            label='Total Calories'
-                            value={totalCalories}
-                            type='number'
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                            error={!!getFieldError('totalCalories')}
-                            helperText={getFieldError('totalCalories')}
-                            onChange={(e) => setTotalCalories(e.target.value)}
                         />
                     </FormControl>
                     {errors.length >0 && (

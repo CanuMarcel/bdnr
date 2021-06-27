@@ -29,6 +29,7 @@ export default function CommentDialog({ open, onClose }) {
     const [longitude, setLongitude] = useState('')
     const [cadence, setCadence] = useState('')
     const [calories, setCalories] = useState('')
+    const [speed, setSpeed] = useState('')
 
     const [errors, setErrors] = useState([])
 
@@ -39,6 +40,7 @@ export default function CommentDialog({ open, onClose }) {
         longitude,
         cadence,
         calories,
+        speed,
       })
         .then(handleClose)
         .catch(e => setErrors(e.response.data.errors))
@@ -51,6 +53,7 @@ export default function CommentDialog({ open, onClose }) {
         setLongitude('')
         setCadence('')
         setCalories('')
+        setSpeed('')
         onClose()
     }
 
@@ -191,6 +194,27 @@ export default function CommentDialog({ open, onClose }) {
                             helperText={getFieldError('calories')}
                             onChange={(e) => setCalories(e.target.value)}
                             required
+                        />
+                    </FormControl>
+                     <FormControl
+                        variant='outlined'
+                        className={classes.formControl}
+                        name='speed'
+                        fullWidth
+                    >
+                        <TextField
+                            autoFocus
+                            margin='dense'
+                            id='speed'
+                            label='Speed'
+                            value={speed}
+                            type='number'
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            error={!!getFieldError('speed')}
+                            helperText={getFieldError('speed')}
+                            onChange={(e) => setSpeed(e.target.value)}
                         />
                     </FormControl>
                     {errors.length >0 && (
