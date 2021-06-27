@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-export default function MetricDialog({ open, onClose }) {
+export default function UserDialog({ open, onClose }) {
     const classes = useStyles()
 
     const [username, setUsername] = useState('')
@@ -439,7 +439,7 @@ export default function MetricDialog({ open, onClose }) {
                         />
                       </FormGroup>
                     </FormControl>
-                    {errors && (
+                    {errors.length >0 && (
                         <FormHelperText variant='filled' error={true}>
                             Please check the errors and try again
                         </FormHelperText>
@@ -461,7 +461,7 @@ export default function MetricDialog({ open, onClose }) {
     )
 }
 
-MetricDialog.propTypes = {
+UserDialog.propTypes = {
     open: PropTypes.bool,
     onClose: PropTypes.func,
 }
