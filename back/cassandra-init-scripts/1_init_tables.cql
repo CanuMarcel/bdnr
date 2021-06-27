@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS bdnr.points (
     longitude float,
     cadence float,
     calories float,
+    speed float,
     PRIMARY KEY ((user_id, activity_timeuuid), point_timeuuid)
 ) WITH CLUSTERING ORDER BY (point_timeuuid DESC);
 
