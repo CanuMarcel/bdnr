@@ -1,12 +1,7 @@
 const { body } = require('express-validator');
 const { validationResult } = require('express-validator');
 
-const isPhoto = (value, { req }) => req.body.activity_type == 'photo';
-const isPost = (value, { req }) => req.body.activity_type == 'post';
-const isPhysical = (value, { req }) => req.body.activity_type == 'physical';
-
 const activityValidator = [
-  body('user_id').exists().isInt(),
   body('activity_type').exists().isString().isIn(['photo', 'post', 'physical']),
   body('title').exists().isString(),  
 ]
