@@ -15,6 +15,7 @@ const validator = [
     body('longitude').isFloat().optional(),
     body('cadence').isFloat().optional(),
     body('calories').isFloat().optional(),
+    body('speed').isFloat().optional(),
 ]
   
 module.exports = {
