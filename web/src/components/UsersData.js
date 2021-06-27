@@ -27,6 +27,7 @@ export default function UsersData({users}) {
           users.data.data.map((user) => (
             <Paper className={classes.paper} key={user.username}>
               <Typography noWrap className={classes.info} variant="h6">Username: {user.username}</Typography>
+              <Typography noWrap className={classes.info}>Id: {user._id}</Typography>
               <Typography noWrap className={classes.info}>Name: {user.name}</Typography>
               <Typography noWrap className={classes.info}>Email: {user.email}</Typography>
               <Typography noWrap className={classes.info}>Gender: {user.gender}</Typography>

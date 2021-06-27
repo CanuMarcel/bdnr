@@ -10,6 +10,7 @@ import {
     FormLabel,
     FormControlLabel,
     FormGroup,
+    FormHelperText,
     Checkbox,
     Radio,
     RadioGroup,
@@ -23,13 +24,13 @@ const useStyles = makeStyles((theme) => ({
     formControl: {
         paddingBottom: theme.spacing(2),
     },
-    formControlRadio: {
+    formControlOptions: {
         marginTop: theme.spacing(2),
     },
-    radioGroup: {
+    optionsGroup: {
         paddingTop: theme.spacing(2),
     },
-    radio: {
+    option: {
         marginLeft: theme.spacing(2),
     },
 }))
@@ -333,25 +334,25 @@ export default function MetricDialog({ open, onClose }) {
                     <FormControl
                         component='fieldset'
                         variant='outlined'
-                        className={classes.formControlRadio}
+                        className={classes.formControlOptions}
                         name='accountType'
                         fullWidth
                     >
                         <FormLabel component='legend'>Account Type</FormLabel>
                         <RadioGroup
-                            className={classes.radioGroup}
+                            className={classes.optionsGroup}
                             name='accountType'
                             value={type}
                             onChange={(e) => setType(e.target.value)}
                         >
                             <FormControlLabel
-                                className={classes.radio}
+                                className={classes.option}
                                 value='FREE'
                                 control={<Radio color='primary' />}
                                 label='Free'
                             />
                             <FormControlLabel
-                                className={classes.radio}
+                                className={classes.option}
                                 value='PREMIUM'
                                 control={<Radio color='primary' />}
                                 label='Premium'
@@ -362,31 +363,31 @@ export default function MetricDialog({ open, onClose }) {
                     <FormControl
                         component='fieldset'
                         variant='outlined'
-                        className={classes.formControlRadio}
+                        className={classes.formControlOptions}
                         name='gender'
                         fullWidth
                     >
                         <FormLabel component='legend'>Gender</FormLabel>
                         <RadioGroup
-                            className={classes.radioGroup}
+                            className={classes.optionsGroup}
                             name='gender'
                             value={gender}
                             onChange={(e) => setGender(e.target.value)}
                         >
                             <FormControlLabel
-                                className={classes.radio}
+                                className={classes.option}
                                 value='NONBINARY'
                                 control={<Radio color='primary' />}
                                 label='Non Binary'
                             />
                             <FormControlLabel
-                                className={classes.radio}
+                                className={classes.option}
                                 value='MALE'
                                 control={<Radio color='primary' />}
                                 label='Male'
                             />
                             <FormControlLabel
-                                className={classes.radio}
+                                className={classes.option}
                                 value='FEMALE'
                                 control={<Radio color='primary' />}
                                 label='Female'
@@ -397,25 +398,25 @@ export default function MetricDialog({ open, onClose }) {
                     <FormControl
                         component='fieldset'
                         variant='outlined'
-                        className={classes.formControlRadio}
+                        className={classes.formControlOptions}
                         name='privacy'
                         fullWidth
                     >
                         <FormLabel component='legend'>Privacy</FormLabel>
                         <RadioGroup
-                            className={classes.radioGroup}
+                            className={classes.optionsGroup}
                             name='privacy'
                             value={privacy}
                             onChange={(e) => setPrivacy(e.target.value)}
                         >
                             <FormControlLabel
-                                className={classes.radio}
+                                className={classes.option}
                                 value='PUBLIC'
                                 control={<Radio color='primary' />}
                                 label='Public'
                             />
                             <FormControlLabel
-                                className={classes.radio}
+                                className={classes.option}
                                 value='PRIVATE'
                                 control={<Radio color='primary' />}
                                 label='Private'
@@ -423,19 +424,26 @@ export default function MetricDialog({ open, onClose }) {
                         </RadioGroup>
                     </FormControl>
 
-                    <FormControl component="fieldset" className={classes.formControl}>
+                    <FormControl component="fieldset" className={classes.formControlOptions}>
                       <FormLabel component="legend">Notifications Opt In</FormLabel>
-                      <FormGroup>
+                      <FormGroup className={classes.optionsGroup}>
                         <FormControlLabel
+                            className={classes.option}
                           control={<Checkbox checked={KUDOS} onChange={handlePotinChange} name="KUDOS" />}
                           label="Kudos"
                         />
                         <FormControlLabel
+                            className={classes.option}
                           control={<Checkbox checked={COMMENTS} onChange={handlePotinChange} name="COMMENTS" />}
                           label="Comments"
                         />
                       </FormGroup>
                     </FormControl>
+                    {errors && (
+                        <FormHelperText variant='filled' error={true}>
+                            Please check the errors and try again
+                        </FormHelperText>
+                    )}
                 </form>
             </DialogContent>
             <DialogActions>

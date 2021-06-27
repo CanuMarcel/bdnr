@@ -7,7 +7,9 @@ class API {
             headers: { 'Content-Type': 'application/json' },
         })
   }
-
+  async getActivities(userId){
+      return await this.instance.get(`activities/${userId}`)
+  }
   async getUsers() {
       return await this.instance.get(`users`)
   }
