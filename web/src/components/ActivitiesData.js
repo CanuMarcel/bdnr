@@ -32,7 +32,7 @@ export default function ActivitiesData({activities}) {
         )
         :
         <Typography variant="h6" noWrap className={classes.title}>
-          No activities yet
+          No activities for this user yet
         </Typography>
         }  
       </Paper>
