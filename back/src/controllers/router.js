@@ -26,6 +26,7 @@ router.post(
   validateResult,
   async (req, res, next) => await activities.create(req, res, next)
 )
+router.post('/:user_id/activities/:activity_timeuuid/finish', async (req, res ,next) => await activities.finish(req, res, next))
 
 
 // COMMENTS
