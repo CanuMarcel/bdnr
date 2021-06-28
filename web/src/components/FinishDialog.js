@@ -39,6 +39,7 @@ export default function FinishDialog({ open, onClose }) {
         setUserId('')
         setActivityTimeuuid('')
         setActivityType('')
+        setErrors()
         onClose()
     }
 

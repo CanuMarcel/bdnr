@@ -6,6 +6,26 @@ class API {
             baseURL: 'http://localhost:8000',
             headers: { 'Content-Type': 'application/json' },
         })
+        this.instance.interceptors.response.use(
+            (response) => {
+                return response.data
+            },
+            (error) => {
+                if (error.response) {
+                    const data = error.response.data
+                    if (data)
+                        throw data
+                    else throw error.response
+                } else {
+                    console.error(error)
+                    throw new Error(
+                        error.request
+                            ? 'Error communicating with API.'
+                            : 'Error creating request.',
+                    )
+                }
+            },
+        )
   }
   async getActivities(userId){
       return await this.instance.get(`${userId}/activities`)

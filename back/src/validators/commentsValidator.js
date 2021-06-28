@@ -11,7 +11,7 @@ const validateResult = (req, res, next) => {
 
 
 const validator = [
-    body('user_id').exists().isInt(),
+    body('user_id').exists().isString(), 
     body('text').exists().isString(),
 ]
   

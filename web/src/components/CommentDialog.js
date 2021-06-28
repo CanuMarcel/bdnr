@@ -45,11 +45,12 @@ export default function CommentDialog({ open, onClose }) {
         setActivityTimeuuid('')
         setUserId('')
         setText('')
+        setErrors()
         onClose()
     }
 
     const getFieldError = (field) => errors?.find(error => error.param === field)?.msg
-
+    
 
     return (
         <Dialog

@@ -103,6 +103,7 @@ export default function UserDialog({ open, onClose }) {
       setType('FREE')
       setPrivacy('PUBLIC')
       setOptin({comments: false, kudos: false,})
+      setErrors()
       onClose()
     }
 
