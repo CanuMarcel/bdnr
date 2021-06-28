@@ -10,11 +10,21 @@ class ActivitiesRepository {
         const result = await this.activity.find({ user_id });
         return result.toArray();
     }
-
+    
+    async findOne(user_id, activity_timeuuid) {
+        const result = await this.activity.get({user_id, activity_timeuuid});
+        return result;
+    }
+    
     async create(activity) {
         activity.activity_timeuuid = TimeUuid.now();
         await this.activity.insert(activity);
     }
+
+    async update(activity) {
+        await this.activity.update(activity);
+    }
+
 }
 
 module.exports = ActivitiesRepository;
