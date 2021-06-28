@@ -54,6 +54,7 @@ export default function CommentDialog({ open, onClose }) {
         setCadence('')
         setCalories('')
         setSpeed('')
+        setErrors()
         onClose()
     }
 

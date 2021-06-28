@@ -23,23 +23,23 @@ export default function UsersData({users}) {
 
     return (
       <Paper className={classes.paper}>
-        {users?.isSuccess && users?.data?.data?.length > 0 ? (
-          users.data.data.map((user) => (
+        {users?.isSuccess && users?.data?.length > 0 ? (
+          users.data.map((user) => (
             <Paper className={classes.paper} key={user.username}>
-              <Typography noWrap className={classes.info} variant="h6">Username: {user.username}</Typography>
-              <Typography noWrap className={classes.info}>Id: {user._id}</Typography>
-              <Typography noWrap className={classes.info}>Name: {user.name}</Typography>
-              <Typography noWrap className={classes.info}>Email: {user.email}</Typography>
-              <Typography noWrap className={classes.info}>Gender: {user.gender}</Typography>
-              <Typography noWrap className={classes.info}>Date of Birth: {user.birthdate}</Typography>
-              <Typography noWrap className={classes.info}>Height: {user.height.$numberDecimal} meters</Typography>
-              <Typography noWrap className={classes.info}>Weight: {user.weight.$numberDecimal} kilos</Typography>
-              <Typography noWrap className={classes.info}>Latitude: {user.latitude.$numberDecimal}</Typography>
-              <Typography noWrap className={classes.info}>Longitude: {user.longitude.$numberDecimal}</Typography>
-              <Typography noWrap className={classes.info}>Equipment: {user.equipment?.join()}</Typography>
-              <Typography noWrap className={classes.info}>Account Type: {user.type}</Typography>
-              <Typography noWrap className={classes.info}>Account Privacy setting: {user.privacy}</Typography>
-              <Typography noWrap className={classes.info}>Notifications Opt In: {user.optin?.join().toLowerCase()}</Typography>
+              <Typography noWrap className={classes.info} variant="h6"><b>Username:</b> {user.username}</Typography>
+              <Typography noWrap className={classes.info}><b>Id:</b> {user._id}</Typography>
+              <Typography noWrap className={classes.info}><b>Name:</b> {user.name}</Typography>
+              <Typography noWrap className={classes.info}><b>Email:</b> {user.email}</Typography>
+              <Typography noWrap className={classes.info}><b>Gender:</b> {user.gender}</Typography>
+              <Typography noWrap className={classes.info}><b>Date of Birth:</b> {user.birthdate}</Typography>
+              <Typography noWrap className={classes.info}><b>Height:</b> {user.height.$numberDecimal} meters</Typography>
+              <Typography noWrap className={classes.info}><b>Weight:</b> {user.weight.$numberDecimal} kilos</Typography>
+              <Typography noWrap className={classes.info}><b>Latitude:</b> {user.latitude.$numberDecimal}</Typography>
+              <Typography noWrap className={classes.info}><b>Longitude:</b> {user.longitude.$numberDecimal}</Typography>
+              <Typography noWrap className={classes.info}><b>Equipment:</b> {user.equipment?.join()}</Typography>
+              <Typography noWrap className={classes.info}><b>Account Type:</b> {user.type}</Typography>
+              <Typography noWrap className={classes.info}><b>Account Privacy setting:</b> {user.privacy}</Typography>
+              <Typography noWrap className={classes.info}><b>Notifications Opt In:</b> {user.optin?.join().toLowerCase()}</Typography>
             </Paper>
           ))
         )

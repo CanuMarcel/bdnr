@@ -15,7 +15,6 @@ class UsersController {
       const newUser = await this.repository.create(req.body)
       res.json(newUser);
     } catch (e) {
-      console.log(e)
       next(e)
     }
   }

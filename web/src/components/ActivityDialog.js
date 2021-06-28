@@ -52,7 +52,7 @@ export default function ActivityDialog({ open, onClose }) {
         perceived_effort: perceivedEffort||undefined,
       })
         .then(handleClose)
-        .catch(e => console.log(e))
+        .catch(e => setErrors(e.errors))
     }
 
     const handleClose = () => {
@@ -66,11 +66,17 @@ export default function ActivityDialog({ open, onClose }) {
         setDistance('')
         setDescription('')
         setPerceivedEffort('')
+        setErrors()
         onClose()
     }
 
-    const getFieldError = (field) => errors?.find(error => error.param === field)?.msg
-
+    const getFieldError = (field) => {
+        if(errors && errors[0]?.nestedErrors?.length > 0 ) {
+            return errors[0].nestedErrors.find(error => error.param === field)?.msg
+        } else {
+            return errors?.find(error => error.param === field)?.msg
+        }
+    }
 
     return (
         <Dialog
