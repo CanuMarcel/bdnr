@@ -14,8 +14,12 @@ class UsersController {
     try {
       const newUser = await this.repository.create(req.body)
       res.json(newUser);
-    } catch (e) {
-      next(e)
+    } catch (error) {
+      if(error.name === 'MongoError' && error.code == 11000) {
+        res.status(400).json({errors: [{param: 'email', msg: 'Must be unique'}, {param: 'username', msg: 'Must be unique'}]})
+      } else {
+        next(error);
+      }
     }
   }
 }
