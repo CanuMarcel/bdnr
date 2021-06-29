@@ -12,6 +12,7 @@ import {
     FormGroup,
     FormHelperText,
     Checkbox,
+    Typography,
     Radio,
     RadioGroup,
     makeStyles,
@@ -119,6 +120,7 @@ export default function UserDialog({ open, onClose }) {
         >
             <DialogTitle>Create new user</DialogTitle>
             <DialogContent>
+                <Typography>Username and email must be unique</Typography>
                 <form noValidate>
                     <FormControl
                         variant='outlined'
