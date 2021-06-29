@@ -6,8 +6,13 @@ class CommentsRepository {
         this.comment = cassandraMapper.forModel('Comment');
     }
     async listForActivity(activity_user_id, activity_timeuuid) {
-        const result = await this.comment.find({ activity_user_id, activity_timeuuid });
-        return result.toArray();
+        try {
+            const result = await this.comment.find({ activity_user_id, activity_timeuuid });
+            return result.toArray();
+        } catch(error) {
+            console.error(error);
+            return [];
+        }
     }
     
     async create(comment) {

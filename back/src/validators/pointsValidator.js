@@ -1,4 +1,4 @@
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 const { validationResult } = require('express-validator');
 
 const validateResult = (req, res, next) => {
@@ -11,6 +11,8 @@ const validateResult = (req, res, next) => {
 
 
 const validator = [
+    param('user_id').exists().isString(),
+    param('activity_timeuuid').exists().isUUID(),
     body('latitude').isFloat().optional(),
     body('longitude').isFloat().optional(),
     body('cadence').isFloat().optional(),

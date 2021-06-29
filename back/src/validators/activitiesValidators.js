@@ -1,7 +1,13 @@
-const { body } = require('express-validator');
+const { body, param } = require('express-validator');
 const { validationResult } = require('express-validator');
 
+const finishValidator = [
+  param('user_id').exists().isString(),
+  param('activity_timeuuid').exists().isUUID(),
+]
+
 const activityValidator = [
+  param('user_id').exists().isString(),
   body('activity_type').exists().isString().isIn(['photo', 'post', 'physical']),
   body('title').exists().isString(),  
 ]
@@ -36,6 +42,7 @@ const validateResult = (req, res, next) => {
 }
 
 module.exports = {
+  finishValidator,
   physicalValidator,
   postValidator,
   photoValidator,

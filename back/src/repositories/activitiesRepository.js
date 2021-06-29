@@ -12,8 +12,13 @@ class ActivitiesRepository {
     }
     
     async findOne(user_id, activity_timeuuid) {
-        const result = await this.activity.get({user_id, activity_timeuuid});
-        return result;
+        try {
+            const result = await this.activity.get({user_id, activity_timeuuid});
+            return result;
+        } catch(error) {
+            console.error(error);
+            return null;
+        }
     }
     
     async create(activity) {

@@ -6,13 +6,13 @@ class PointsController {
     }
 
     async list(req, res, next) {
-      const result = await this.repository.listForActivity(req.params.user_id, req.params.activity_timeuuid)
+      const result = await this.repository.listForActivity(req.params.activity_user_id, req.params.activity_timeuuid)
       res.json(result)
     }
 
     async create(req, res, next) {
       const comment = req.body;
-      comment.user_id = req.params.user_id;
+      comment.user_id = req.params.activity_user_id;
       comment.activity_timeuuid = req.params.activity_timeuuid
       const result = await this.repository.create(comment)
       res.json(result)
