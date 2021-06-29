@@ -85,7 +85,7 @@ export default function UserDialog({ open, onClose }) {
         optin: actualOptin,
       })
         .then(handleClose)
-        .catch(e => setErrors(e.response.data.errors))
+        .catch(e => setErrors(e.errors))
     }
 
     const handleClose = () => {

@@ -101,8 +101,8 @@ export default function ActivityDialog({ open, onClose }) {
                             label='User Id'
                             required={true}
                             value={userId}
-                            error={!!getFieldError('userId')}
-                            helperText={getFieldError('userId')}
+                            error={!!getFieldError('user_id')}
+                            helperText={getFieldError('user_id')}
                             onChange={(e) => setUserId(e.target.value)}
                         />
                     </FormControl>
@@ -118,8 +118,8 @@ export default function ActivityDialog({ open, onClose }) {
                             id='activityType'
                             label='ActivityType'
                             value={activityType}
-                            error={!!getFieldError('activityType')}
-                            helperText={getFieldError('activityType')}
+                            error={!!getFieldError('activity_type')}
+                            helperText={getFieldError('activity_type')}
                             onChange={(e) => setActivityType(e.target.value)}
                         />
                     </FormControl>
@@ -152,8 +152,8 @@ export default function ActivityDialog({ open, onClose }) {
                             id='photoUrl'
                             label='Photo Url'
                             value={photoUrl}
-                            error={!!getFieldError('photoUrl')}
-                            helperText={getFieldError('photoUrl')}
+                            error={!!getFieldError('photo_url')}
+                            helperText={getFieldError('photo_url')}
                             onChange={(e) => setPhotoUrl(e.target.value)}
                         />
                     </FormControl>
@@ -283,8 +283,8 @@ export default function ActivityDialog({ open, onClose }) {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                            error={!!getFieldError('perceivedEffort')}
-                            helperText={getFieldError('perceivedEffort')}
+                            error={!!getFieldError('perceived_effort')}
+                            helperText={getFieldError('perceived_effort')}
                             onChange={(e) => setPerceivedEffort(e.target.value)}
                         />
                     </FormControl>
