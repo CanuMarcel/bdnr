@@ -31,7 +31,7 @@ export default function FinishDialog({ open, onClose }) {
     const handleSubmit = () => {
         api.finishActivity(userId,activityTimeuuid)
             .then(handleClose)
-            .catch(e => setErrors(e.errors || ['Error']))
+            .catch(e => setErrors(e.errors))
     }
 
     const handleClose = () => {
@@ -92,7 +92,7 @@ export default function FinishDialog({ open, onClose }) {
                     </FormControl>
                     {errors?.length >0 && (
                         <FormHelperText variant='filled' error={true}>
-                            Please check that activity with these attributes exists!
+                            Please check the errors and try again
                         </FormHelperText>
                     )}
                 </form>

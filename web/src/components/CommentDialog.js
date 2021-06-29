@@ -37,7 +37,7 @@ export default function CommentDialog({ open, onClose }) {
         text: text || undefined,
       })
         .then(handleClose)
-        .catch(e => console.log(e) || setErrors(e.errors))
+        .catch(e => setErrors(e.errors))
     }
 
     const handleClose = () => {
