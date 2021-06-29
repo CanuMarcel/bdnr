@@ -36,14 +36,14 @@ export default function CommentDialog({ open, onClose }) {
     const handleSubmit = () => {
       api.createPoint(userId,activityTimeuuid,
         {
-        latitude,
-        longitude,
-        cadence,
-        calories,
-        speed,
+        latitude: latitude || undefined,
+        longitude: longitude || undefined,
+        cadence: cadence || undefined,
+        calories: calories || undefined,
+        speed: speed || undefined,
       })
         .then(handleClose)
-        .catch(e => setErrors(e.response.data.errors))
+        .catch(e => setErrors(e.errors))
     }
 
     const handleClose = () => {
@@ -83,8 +83,9 @@ export default function CommentDialog({ open, onClose }) {
                             id='userId'
                             label='Activity User Id'
                             value={userId}
-                            error={!!getFieldError('userId')}
-                            helperText={getFieldError('userId')}
+                            required={true}
+                            error={!!getFieldError('user_id')}
+                            helperText={getFieldError('user_id')}
                             onChange={(e) => setUserId(e.target.value)}
                         />
                     </FormControl>
@@ -99,9 +100,10 @@ export default function CommentDialog({ open, onClose }) {
                             margin='dense'
                             id='activityTimeuuid'
                             label='Activity Timeuuid'
+                            required={true}
                             value={activityTimeuuid}
-                            error={!!getFieldError('activityTimeuuid')}
-                            helperText={getFieldError('activityTimeuuid')}
+                            error={!!getFieldError('activity_timeuuid')}
+                            helperText={getFieldError('activity_timeuuid')}
                             onChange={(e) => setActivityTimeuuid(e.target.value)}
                         />
                     </FormControl>
@@ -232,6 +234,7 @@ export default function CommentDialog({ open, onClose }) {
                 <Button
                     onClick={handleSubmit}
                     color='primary'
+                    disabled={userId === '' || activityTimeuuid === ''}
                 >
                     Submit
                 </Button>

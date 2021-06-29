@@ -25,20 +25,18 @@ export default function FinishDialog({ open, onClose }) {
 
     const [userId, setUserId] = useState('')
     const [activityTimeuuid ,setActivityTimeuuid ] = useState('')
-    const [activityType ,setActivityType ] = useState('')
 
     const [errors, setErrors] = useState([])
 
     const handleSubmit = () => {
-      api.finishActivity(userId,activityTimeuuid)
-        .then(handleClose)
-        .catch(e => setErrors(e.response.data.errors))
+        api.finishActivity(userId,activityTimeuuid)
+            .then(handleClose)
+            .catch(e => setErrors(e.errors))
     }
 
     const handleClose = () => {
         setUserId('')
         setActivityTimeuuid('')
-        setActivityType('')
         setErrors()
         onClose()
     }
@@ -64,12 +62,13 @@ export default function FinishDialog({ open, onClose }) {
                     >
                         <TextField
                             autoFocus
+                            required={true}
                             margin='dense'
                             id='userId'
                             label='Activity User Id'
                             value={userId}
-                            error={!!getFieldError('userId')}
-                            helperText={getFieldError('userId')}
+                            error={!!getFieldError('user_id')}
+                            helperText={getFieldError('user_id')}
                             onChange={(e) => setUserId(e.target.value)}
                         />
                     </FormControl>
@@ -81,30 +80,14 @@ export default function FinishDialog({ open, onClose }) {
                     >
                         <TextField
                             autoFocus
+                            required={true}
                             margin='dense'
                             id='activityTimeuuid'
                             label='Activity Timeuuid'
                             value={activityTimeuuid}
-                            error={!!getFieldError('activityTimeuuid')}
-                            helperText={getFieldError('activityTimeuuid')}
+                            error={!!getFieldError('activity_timeuuid')}
+                            helperText={getFieldError('activity_timeuuid')}
                             onChange={(e) => setActivityTimeuuid(e.target.value)}
-                        />
-                    </FormControl>
-                    <FormControl
-                        variant='outlined'
-                        className={classes.formControl}
-                        name='activityType'
-                        fullWidth
-                    >
-                        <TextField
-                            autoFocus
-                            margin='dense'
-                            id='activityType'
-                            label='Activity Type'
-                            value={activityType}
-                            error={!!getFieldError('activityType')}
-                            helperText={getFieldError('activityType')}
-                            onChange={(e) => setActivityType(e.target.value)}
                         />
                     </FormControl>
                     {errors?.length >0 && (
@@ -121,6 +104,7 @@ export default function FinishDialog({ open, onClose }) {
                 <Button
                     onClick={handleSubmit}
                     color='primary'
+                    disabled={userId === '' || activityTimeuuid === ''}
                 >
                     Submit
                 </Button>

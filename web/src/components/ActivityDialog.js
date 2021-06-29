@@ -99,6 +99,7 @@ export default function ActivityDialog({ open, onClose }) {
                             margin='dense'
                             id='userId'
                             label='User Id'
+                            required={true}
                             value={userId}
                             error={!!getFieldError('userId')}
                             helperText={getFieldError('userId')}
@@ -301,6 +302,7 @@ export default function ActivityDialog({ open, onClose }) {
                 <Button
                     onClick={handleSubmit}
                     color='primary'
+                    disabled={userId === ''}
                 >
                     Submit
                 </Button>

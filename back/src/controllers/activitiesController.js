@@ -25,7 +25,7 @@ class ActivitiesController {
       const activity_timeuuid = req.params.activity_timeuuid;
       const activity = await this.repository.findOne(user_id, activity_timeuuid);
       if(!activity) {
-        return res.status(404).json({'detail': 'Not found'})
+        return res.status(404).json({errors: [{param: 'activity_timeuuid', msg: 'Not found'}]})
       }
       const points = await this.points.listForActivity(user_id, activity_timeuuid);
       const stats = retrieveStats(points);

@@ -33,11 +33,11 @@ export default function CommentDialog({ open, onClose }) {
     const handleSubmit = () => {
       api.createComment(activityUserId,activityTimeuuid,
         {
-        user_id: userId,
-        text,
+        user_id: userId || undefined,
+        text: text || undefined,
       })
         .then(handleClose)
-        .catch(e => setErrors(e.response.data.errors))
+        .catch(e => setErrors(e.errors))
     }
 
     const handleClose = () => {
@@ -73,9 +73,10 @@ export default function CommentDialog({ open, onClose }) {
                             margin='dense'
                             id='activityUserId'
                             label='Activity User Id'
+                            required={true}
                             value={activityUserId}
-                            error={!!getFieldError('activityUserId')}
-                            helperText={getFieldError('activityUserId')}
+                            error={!!getFieldError('activity_user_id')}
+                            helperText={getFieldError('activity_user_id')}
                             onChange={(e) => setActivityUserId(e.target.value)}
                         />
                     </FormControl>
@@ -90,9 +91,10 @@ export default function CommentDialog({ open, onClose }) {
                             margin='dense'
                             id='activityTimeuuid'
                             label='Activity Timeuuid'
+                            required={true}
                             value={activityTimeuuid}
-                            error={!!getFieldError('activityTimeuuid')}
-                            helperText={getFieldError('activityTimeuuid')}
+                            error={!!getFieldError('activity_timeuuid')}
+                            helperText={getFieldError('activity_timeuuid')}
                             onChange={(e) => setActivityTimeuuid(e.target.value)}
                         />
                     </FormControl>
@@ -108,8 +110,8 @@ export default function CommentDialog({ open, onClose }) {
                             id='userId'
                             label='Commentor User Id'
                             value={userId}
-                            error={!!getFieldError('userId')}
-                            helperText={getFieldError('userId')}
+                            error={!!getFieldError('user_id')}
+                            helperText={getFieldError('user_id')}
                             onChange={(e) => setUserId(e.target.value)}
                         />
                     </FormControl>
@@ -124,6 +126,7 @@ export default function CommentDialog({ open, onClose }) {
                             margin='dense'
                             id='text'
                             label='Text'
+                            required={true}
                             value={text}
                             error={!!getFieldError('text')}
                             helperText={getFieldError('text')}
@@ -144,6 +147,7 @@ export default function CommentDialog({ open, onClose }) {
                 <Button
                     onClick={handleSubmit}
                     color='primary'
+                    disabled={activityUserId === '' || activityTimeuuid === '' || userId === ''}
                 >
                     Submit
                 </Button>

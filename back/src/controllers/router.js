@@ -4,7 +4,7 @@ const ActivitiesController = require('./activitiesController');
 const CommentsController = require('./commentsController');
 const PointsController = require('./pointsController');
 const UsersController = require('./usersController');
-const { activityValidator, photoValidator, validateResult, postValidator, physicalValidator} = require('../validators/activitiesValidators');
+const { activityValidator, photoValidator, validateResult, postValidator, physicalValidator, finishValidator } = require('../validators/activitiesValidators');
 const usersValidators = require('../validators/usersValidators');
 const { oneOf } = require('express-validator');
 const commentsValidator = require('../validators/commentsValidator');
@@ -26,14 +26,14 @@ router.post(
   validateResult,
   async (req, res, next) => await activities.create(req, res, next)
 )
-router.post('/:user_id/activities/:activity_timeuuid/finish', async (req, res ,next) => await activities.finish(req, res, next))
+router.post('/:user_id/activities/:activity_timeuuid/finish', finishValidator, validateResult,  async (req, res ,next) => await activities.finish(req, res, next))
 
 
 // COMMENTS
 
-router.get('/:user_id/activities/:activity_timeuuid/comments', async (req, res, next) => await comments.list(req, res, next))
+router.get('/:activity_user_id/activities/:activity_timeuuid/comments', async (req, res, next) => await comments.list(req, res, next))
 router.post(
-  '/:user_id/activities/:activity_timeuuid/comments',
+  '/:activity_user_id/activities/:activity_timeuuid/comments',
   commentsValidator.validator,
   commentsValidator.validateResult,
   async (req, res, next) => await comments.create(req, res, next)
