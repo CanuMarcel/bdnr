@@ -29,7 +29,7 @@ const physicalValidator = [
   body('photo_url').isURL().optional(),
   body('duration').isInt().optional(),
   body('distance').isFloat().optional(),
-  body('perceived_effort').isInt(),
+  body('perceived_effort').isInt().optional(),
   body('description').isString(),
 ]
 

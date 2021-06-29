@@ -9,6 +9,7 @@ import {
     FormControl,
     FormHelperText,
     makeStyles,
+    Typography,
 } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { api } from '../api'
@@ -56,6 +57,7 @@ export default function ActivityDialog({ open, onClose }) {
     }
 
     const handleClose = () => {
+        setUserId('')
         setActivityType('')
         setTitle('')
         setPhotoUrl('')
@@ -87,6 +89,10 @@ export default function ActivityDialog({ open, onClose }) {
         >
             <DialogTitle>Create new activity</DialogTitle>
             <DialogContent>
+                <Typography>To create any activity set user id, activity type and title </Typography>
+                <Typography>To create a photo activity set activity type as photo, set photo url and comment fields.</Typography>
+                <Typography>To create a post activity set activity type as post and set text field.</Typography>
+                <Typography>To create a physical activity set activity type as physical and set physical activity type and description. The others are optional</Typography>
                 <form noValidate>
                 <FormControl
                         variant='outlined'
@@ -99,7 +105,7 @@ export default function ActivityDialog({ open, onClose }) {
                             margin='dense'
                             id='userId'
                             label='User Id'
-                            required={true}
+                            required
                             value={userId}
                             error={!!getFieldError('user_id')}
                             helperText={getFieldError('user_id')}
@@ -121,6 +127,7 @@ export default function ActivityDialog({ open, onClose }) {
                             error={!!getFieldError('activity_type')}
                             helperText={getFieldError('activity_type')}
                             onChange={(e) => setActivityType(e.target.value)}
+                            required
                         />
                     </FormControl>
                     <FormControl
@@ -138,6 +145,7 @@ export default function ActivityDialog({ open, onClose }) {
                             error={!!getFieldError('title')}
                             helperText={getFieldError('title')}
                             onChange={(e) => setTitle(e.target.value)}
+                            required
                         />
                     </FormControl>
                     <FormControl
